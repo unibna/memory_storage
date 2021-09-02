@@ -1,0 +1,80 @@
+{% extends 'home/base.html' %} 
+{% load static %}
+
+{% block external_link %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container-fluid">
+        <div class="container text-center">
+            {% if user.is_authenticated %} 
+                {% for ass in backends.associated %}
+                    {% if ass.provider == 'facebook' %}
+                        <img src="{{ass.extra_data.picture.data.url}}" alt="" width="150" height="150" style="border-radius: 50%">
+                    {% endif %}
+                {% endfor %}
+                <h3 class="header_welcome-text text-center">
+                    Hi, {{ user.username }}!
+                </h3>
+            {% else %}
+                <h3 class="header_welcome-text text-center">
+                    Let us save your memory ... 
+                </h3>
+                
+                <div class="d-grid gap-2 col-2 mx-auto">
+                    <a href="{% url 'login' %}" class="btn btn-outline-success rounded-pill">
+                        login
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+{% if user.is_authenticated %}
+<section class="memory-zone">
+    <div class="container-fluid">
+        <div class="container">
+
+            <!-- divided line -->
+            <div class="d-grid gap-2 col-4 mx-auto mb-4 border border-top"></div>
+
+            {% if user.memory_set.all.count == 0 %}
+                <h4 class="text-center">You have no memories</h4>
+                <span class="d-block text-center">
+                    <a href="{% url 'memory_create' %}" class="btn btn-outline-success rounded-pill px-4">
+                        new memory
+                    </a>
+                </span>
+            {% else %}
+                <span class="d-block text-center">
+                    <a href="{% url 'memory_create' %}" class="btn btn-outline-success rounded-pill px-4">
+                        new memory
+                    </a>
+                </span>
+                <div class="memory-set d-grid gap-2 col-lg-6 mx-auto mt-4">
+                    {% for memory in user.memory_set.all %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{memory.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{memory.created}}</h6>
+                            </div>                    
+                            
+                            <span class="d-grid gap-2">
+                                <a href="{% url 'memory_detail' memory.id %}" class="memory-set_btn btn btn-success">Read more</a>
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block external_script %}{% endblock %}

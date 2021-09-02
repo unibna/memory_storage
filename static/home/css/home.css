@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    align-items: center;
+    min-height: 300px;
+}
+
+.header_welcome-text {
+    font-size: 6rem;
+    color: var(--text-color);
+}
+
+.header_btn-group {
+    display: flex;
+    justify-content: center;
+}
+
+.memory-zone {
+    display: flex;
+    justify-content: center;
+}
+
+.memory-set {
+    display: flex;
+    width: 60%;
+    
+    padding: 4px;
+}
+
+.memory-set_btn {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-radius: 0px;
+}

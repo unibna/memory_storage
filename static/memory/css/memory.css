@@ -1,0 +1,15 @@
+.memory-zone {
+
+}
+
+.memory-info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.memory_input-group {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+}
